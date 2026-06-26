@@ -9,9 +9,9 @@ Route::post('/login', [UsersController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users/registered-by-month', [UsersController::class, 'registeredByMonth']);
     Route::get('/users/by-role', [UsersController::class, 'byRole']);
-    Route::get('/get_users', [UsersController::class, 'getUsers']);
-    Route::post('/create_user', [UsersController::class, 'createUser']);
-    Route::put('/update_user/{id}', [UsersController::class, 'updateUser']);
-    Route::delete('/delete_user/{id}', [UsersController::class, 'deleteUser']);
+    Route::get('/get-users', [UsersController::class, 'getUsers']);
+    Route::post('/create-user', [UsersController::class, 'createUser']);
+    Route::put('/update-user/{id}', [UsersController::class, 'updateUser']);
+    Route::delete('/delete-user/{id}', [UsersController::class, 'deleteUser']);
 });
 

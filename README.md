@@ -13,16 +13,15 @@
 
 - PHP 8.4
 - Composer
-- MySQL / MariaDB / PostgreSQL (según tu configuración)
-- Node.js (opcional para assets, Vite)
+- PostgreSQL
 
 ## Instalación
 
 1. Clonar el repositorio:
 
 ```bash
-git clone <URL_DEL_REPOSITORIO> prueba_tecnica
-cd prueba_tecnica
+git clone https://github.com/CelJudy/pruebaBE
+cd pruebaBE
 ```
 
 2. Instalar dependencias de PHP:
@@ -41,18 +40,12 @@ php artisan key:generate
 4. Configurar la base de datos en `.env`:
 
 ```ini
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
+DB_CONNECTION=pgsql
+DB_HOST=localhost
+DB_PORT=5432
 DB_DATABASE=nombre_base_de_datos
 DB_USERNAME=usuario
 DB_PASSWORD=contraseña
-```
-
-5. Instalar dependencias de JavaScript (opcional):
-
-```bash
-npm install
 ```
 
 ## Migraciones
@@ -83,6 +76,16 @@ Si usas `migrate:fresh` y también quieres sembrar los datos en una sola operaci
 php artisan migrate:fresh --seed
 ```
 
+Esto creara un usuario con la siguiente información:
+
+```text
+name: "Test User"
+email: "test@example.com"
+password: "password"
+role: 1
+```
+
+
 ## Ejecución local
 
 Inicia el servidor de desarrollo:
@@ -94,7 +97,7 @@ php artisan serve
 Accede a la aplicación en:
 
 ```text
-http://127.0.0.1:8000
+http://localhost:8000
 ```
 
 ## Uso del proyecto
@@ -111,7 +114,11 @@ Si la documentación Swagger está configurada, puedes generar los archivos Open
 php artisan l5-swagger:generate
 ```
 
-Y luego abrir la interfaz Swagger según la configuración del proyecto.
+Y luego abrir la interfaz Swagger:
+
+```text
+http://localhost:8000/api/documentation
+```
 
 ## Notas
 

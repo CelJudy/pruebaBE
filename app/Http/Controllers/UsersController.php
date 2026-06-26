@@ -138,7 +138,7 @@ class UsersController extends Controller
     }
 
     #[OA\Get(
-        path: '/api/get_users',
+        path: '/api/get-users',
         tags: ['Users'],
         summary: 'Get all users',
         security: [['sanctum' => []]],
@@ -160,7 +160,7 @@ class UsersController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/create_user',
+        path: '/api/create-user',
         tags: ['Users'],
         summary: 'Create a new user',
         security: [['sanctum' => []]],
@@ -199,7 +199,7 @@ class UsersController extends Controller
     }
 
     #[OA\Put(
-        path: '/api/update_user/{id}',
+        path: '/api/update-user/{id}',
         tags: ['Users'],
         summary: 'Update an existing user',
         security: [['sanctum' => []]],
@@ -252,7 +252,7 @@ class UsersController extends Controller
     }
 
     #[OA\Delete(
-        path: '/api/delete_user/{id}',
+        path: '/api/delete-user/{id}',
         tags: ['Users'],
         summary: 'Delete a user',
         security: [['sanctum' => []]],
