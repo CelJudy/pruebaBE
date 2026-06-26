@@ -1,74 +1,17 @@
 <?php
 
-use App\Models\User;
+use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/login', function (Request $request) {
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required|string',
-    ]);
+Route::post('/login', [UsersController::class, 'login']);
 
-    if (!auth()->attempt($credentials)) {
-        return response()->json(['message' => 'Invalid credentials'], 401);
-    }
-
-    $user = auth()->user();
-    $token = $user->createToken('auth_token')->plainTextToken;
-
-    return response()->json([
-        'user' => $user,
-        'token' => $token,
-    ]);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/users/registered-by-month', [UsersController::class, 'registeredByMonth']);
+    Route::get('/users/by-role', [UsersController::class, 'byRole']);
+    Route::get('/get-users', [UsersController::class, 'getUsers']);
+    Route::post('/create-user', [UsersController::class, 'createUser']);
+    Route::put('/update-user/{id}', [UsersController::class, 'updateUser']);
+    Route::delete('/delete-user/{id}', [UsersController::class, 'deleteUser']);
 });
-
-Route::get('/get_users', function (Request $request) {
-    $users = User::all();
-    return response()->json($users, 201);
-})->middleware('auth:sanctum');
-
-Route::post('/create_user', function (Request $request) {
-    $data = $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users,email',
-        'password' => 'required|string|min:8',
-        'role' => 'required|integer',
-    ]);
-
-    $user = User::create($data);
-
-    return response()->json($user, 201);
-})->middleware('auth:sanctum');
-
-Route::put('/update_user/{id}', function (Request $request, $id) {
-    $user = User::find($id);
-
-    if (!$user) {
-        return response()->json(['message' => 'User not found'], 404);
-    }
-
-    $data = $request->validate([
-        'name' => 'sometimes|string|max:255',
-        'email' => 'sometimes|string|email|max:255|unique:users,email,' . $id,
-        'password' => 'sometimes|string|min:8',
-        'role' => 'sometimes|integer',
-    ]);
-
-    $user->update($data);
-
-    return response()->json($user, 200);
-})->middleware('auth:sanctum');
-
-Route::delete('/delete_user/{id}', function (Request $request, $id) {
-    $user = User::find($id);
-
-    if (!$user) {
-        return response()->json(['message' => 'User not found'], 404);
-    }
-
-    $user->delete();
-
-    return response()->json(['message' => 'User deleted successfully'], 200);
-})->middleware('auth:sanctum');
 
