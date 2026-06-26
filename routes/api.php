@@ -2,7 +2,9 @@
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 Route::post('/login', function (Request $request) {
     $credentials = $request->validate([
@@ -22,6 +24,41 @@ Route::post('/login', function (Request $request) {
         'token' => $token,
     ]);
 });
+
+Route::get('/users/registered-by-month', function () {
+    $data = [];
+    $currentMonth = Carbon::now()->startOfMonth();
+
+    for ($i = 2; $i >= 0; $i--) {
+        $month = $currentMonth->copy()->subMonths($i);
+        $start = $month->copy()->startOfMonth();
+        $end = $month->copy()->endOfMonth();
+
+        $count = User::whereBetween('created_at', [$start, $end])->count();
+
+        $data[] = [
+            'label' => Str::ucfirst($month->locale('es')->translatedFormat('M')),
+            'value' => $count,
+        ];
+    }
+
+    return response()->json($data, 200);
+})->middleware('auth:sanctum');
+
+Route::get('/users/by-role', function () {
+    $counts = User::select('role')
+        ->selectRaw('COUNT(*) as value')
+        ->groupBy('role')
+        ->get()
+        ->map(function ($item) {
+            return [
+                'role' => (int) $item->role,
+                'value' => (int) $item->value,
+            ];
+        });
+
+    return response()->json($counts, 200);
+})->middleware('auth:sanctum');
 
 Route::get('/get_users', function (Request $request) {
     $users = User::all();
