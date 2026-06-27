@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\PersonalAccessToken;
 use OpenApi\Attributes as OA;
 
 #[Fillable(['name', 'email', 'password', 'role'])]
@@ -43,5 +44,26 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Revoke all personal access tokens for a given tokenable_id.
+     *
+     * @param  int  $tokenableId
+     * @return int  Number of tokens deleted
+     */
+    public static function revokeTokensByTokenableId(int $tokenableId): int
+    {
+        return PersonalAccessToken::where('tokenable_id', $tokenableId)->delete();
+    }
+
+    /**
+     * Revoke all tokens for this user instance.
+     *
+     * @return int Number of tokens deleted
+     */
+    public function revokeAllTokens(): int
+    {
+        return $this->tokens()->delete();
     }
 }
