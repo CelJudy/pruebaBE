@@ -281,4 +281,25 @@ class UsersController extends Controller
 
         return response()->json(['message' => 'User deleted successfully'], 200);
     }
+
+    #[OA\Delete(
+        path: '/api/logout/{id}',
+        tags: ['Users'],
+        summary: 'Logout a user',
+        parameters: [
+            new OA\Parameter(
+                name: 'id',
+                in: 'path',
+                required: true,
+                schema: new OA\Schema(type: 'integer')
+            ),
+        ],
+        responses: [
+            new OA\Response(response: 200, description: 'Logged out successfully'),
+        ]
+    )]
+    public function logout($id){
+        User::revokeTokensByTokenableId($id);
+        return response()->json(['message' => 'Logged out successfully'], 200);
+    }
 }

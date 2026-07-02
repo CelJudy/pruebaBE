@@ -325,6 +325,30 @@
                     }
                 ]
             }
+        },
+        "/api/logout/{id}": {
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Logout a user",
+                "operationId": "53e5225f11461d1a5946ea90b7f8beee",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Logged out successfully"
+                    }
+                }
+            }
         }
     },
     "components": {

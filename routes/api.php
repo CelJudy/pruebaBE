@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [UsersController::class, 'login']);
+Route::delete('/logout/{id}', [UsersController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users/registered-by-month', [UsersController::class, 'registeredByMonth']);
