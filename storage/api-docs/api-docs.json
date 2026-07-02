@@ -142,13 +142,13 @@
                 ]
             }
         },
-        "/api/get_users": {
+        "/api/get-users": {
             "get": {
                 "tags": [
                     "Users"
                 ],
                 "summary": "Get all users",
-                "operationId": "318589cef643fc88390cd35513a45c90",
+                "operationId": "36d523ab4b99ca722780528c8c39a5e9",
                 "responses": {
                     "201": {
                         "description": "List of users",
@@ -171,13 +171,13 @@
                 ]
             }
         },
-        "/api/create_user": {
+        "/api/create-user": {
             "post": {
                 "tags": [
                     "Users"
                 ],
                 "summary": "Create a new user",
-                "operationId": "8d1f92efad1e3981d0f6135e87ad4740",
+                "operationId": "1c41ffbdb64d93cac989e12839d3d711",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -229,13 +229,13 @@
                 ]
             }
         },
-        "/api/update_user/{id}": {
+        "/api/update-user/{id}": {
             "put": {
                 "tags": [
                     "Users"
                 ],
                 "summary": "Update an existing user",
-                "operationId": "fa618a9f2d6bfd706d458e77d688ee05",
+                "operationId": "07c702323294521d3084ea3febb98dcd",
                 "parameters": [
                     {
                         "name": "id",
@@ -294,13 +294,13 @@
                 ]
             }
         },
-        "/api/delete_user/{id}": {
+        "/api/delete-user/{id}": {
             "delete": {
                 "tags": [
                     "Users"
                 ],
                 "summary": "Delete a user",
-                "operationId": "7b027b726b142f123ce58eb1b5c0c27d",
+                "operationId": "c9631f3d75cff2b06f600a54f01a58f8",
                 "parameters": [
                     {
                         "name": "id",
